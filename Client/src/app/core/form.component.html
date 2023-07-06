@@ -1,0 +1,41 @@
+<form [formGroup]="productForm" #form="ngForm" (ngSubmit)="submitForm()" (reset)="resetForm()">
+    <div class="form-group">
+        <label>Invoice Date</label>
+        <input type="date" class="form-control" formControlName="invoiceDate" />
+    </div>
+ 
+     <div class="form-group">
+        <label>Status</label>
+         <!-- <input   class="form-control" formControlName="invoiceStatus" />-->
+          <select class="form-control" formControlName="invoiceStatus">
+            <option *ngFor="let item of temp" [ngValue]="item.statusName">{{item.statusName}}</option>
+          </select>  
+    </div>  
+
+     <div class="form-group">
+        <label>Invoice Amount</label>
+        <input class="form-control" formControlName="invoiceAmount" [high]=300 [low]=10 />
+        <ul class="text-danger list-unstyled mt-1">
+            <li *validationErrors="productForm; control:'invoiceAmount'; let err">
+                {{ err }}
+            </li>
+        </ul>
+     </div>  
+
+   <!--  <div class="form-group">
+        <label>Price</label>
+        <input class="form-control" formControlName="invoiceAmount" [high]=300 [low]=10 />
+        <ul class="text-danger list-unstyled mt-1">
+            <li *validationErrors="productForm; control:'invoiceAmount'; let err">
+                {{ err }}
+            </li>
+        </ul>
+    </div> -->
+
+    <div class="mt-2">
+        <button type="submit" class="btn btn-primary" [class.btn-warning]="editing" [disabled]="form.invalid">
+            {{editing ? "Save" : "Create"}}
+        </button>
+        <button type="reset" class="btn btn-secondary m-1">Cancel</button>
+    </div>
+</form>
